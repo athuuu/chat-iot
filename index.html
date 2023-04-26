@@ -1,0 +1,71 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chat iot</title>
+</head>
+<style>
+    #messages{
+    border: 1px solid black;
+    height: 60vh;
+    }
+    #messages p {
+        margin: 0;
+        padding: 10px;
+    }
+    #messages :nth-child(odd) {
+        background-color: #aaa;
+    }
+    form{
+        display : flex;
+    }
+    h1{
+        display: flex;
+        justify-content: center;
+    }
+    #username{
+        flex: 1;
+    }
+    #message{
+        flex: 5;
+    }
+    button{
+        flex:1;
+        background-color: green;
+        padding: 10px;
+        border: none;
+        color: primarycolor;
+    
+    }
+</style>
+<body>
+    <h1>Chat Iot</h1>
+    <div id="messages">
+        <p>message 1</p>
+        <p>message 2</p>
+        <p>message 3</p>
+        <p>message 4</p>
+        <p>message 5</p>
+    </div>
+    
+
+    <form>
+      <input type="text" id="username" name="username" placeholder="votre nom">
+      <input type="text" id="message" name="message" placeholder="votre message">
+      <button>Envoyer</button>
+    </form>
+    <script src="node_modules/socket.io/client-dist/socket.io.js"></script>
+    <script>
+        const socket = io();
+        window.onload = () => {
+            document.querySelector("form").addEventListener("submit", (e) => {
+                e.preventDefault();
+
+                const name = document.querySelector("#username")
+                const message = document.querySelectorAll("message");
+                console.log(name , message)
+            })
+        }
+    </script>
+</body>
+</html>
