@@ -41,20 +41,17 @@
 <body>
     <h1>Chat Iot</h1>
     <div id="messages">
-        <p>message 1</p>
-        <p>message 2</p>
-        <p>message 3</p>
-        <p>message 4</p>
-        <p>message 5</p>
+       
     </div>
     
 
     <form>
-      <input type="text" id="username" name="username" placeholder="votre nom">
-      <input type="text" id="message" name="message" placeholder="votre message">
+      <input type="text" id="username" placeholder="votre nom">
+      <input type="text" id="message" placeholder="votre message">
       <button>Envoyer</button>
     </form>
-    <script src="node_modules/socket.io/client-dist/socket.io.js"></script>
+    
+    <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
         window.onload = () => {
@@ -62,8 +59,15 @@
                 e.preventDefault();
 
                 const name = document.querySelector("#username")
-                const message = document.querySelectorAll("message");
-                console.log(name , message)
+                const messages = document.querySelector("#message");
+                
+                socket.emit("chat_message", {
+                    name: name.value, message: messages.value
+                })
+            });
+
+            socket.on("chat_message", (msg) => {
+                document.querySelector('#messages').innerHTML += `<p>${msg.name} a dit ${msg.message}</p>`
             })
         }
     </script>
