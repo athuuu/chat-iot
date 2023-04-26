@@ -3,53 +3,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>chat iot</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<style>
-    #messages{
-    border: 1px solid black;
-    height: 60vh;
-    }
-    #messages p {
-        margin: 0;
-        padding: 10px;
-    }
-    #messages :nth-child(odd) {
-        background-color: #aaa;
-    }
-    form{
-        display : flex;
-    }
-    h1{
-        display: flex;
-        justify-content: center;
-    }
-    #username{
-        flex: 1;
-    }
-    #message{
-        flex: 5;
-    }
-    button{
-        flex:1;
-        background-color: green;
-        padding: 10px;
-        border: none;
-        color: primarycolor;
-    
-    }
-</style>
 <body>
-    <h1>Chat Iot</h1>
-    <div id="messages">
-       
-    </div>
-    
+    <aside>
+        <ul id="tabs">
+            <li class="active">#accueil</li>
+            <li class="entraide">#Entraide</li>
+            <li class="salons">#Salons</li>
 
+        </ul>
+    </aside>
+    <main>
+        
+        <div id="content">
+            <div id="messages"></div>
+            <div id="writing">athu écrit un message</div>
+        </div>
+
+    
     <form>
       <input type="text" id="username" placeholder="votre nom">
       <input type="text" id="message" placeholder="votre message">
       <button>Envoyer</button>
     </form>
+    </main>
+    
     
     <script src="/socket.io/socket.io.js"></script>
     <script>
@@ -62,12 +41,15 @@
                 const messages = document.querySelector("#message");
                 
                 socket.emit("chat_message", {
-                    name: name.value, message: messages.value
-                })
+                    name: name.value, message: messages.value });
+                    
+                    document.querySelector('#message').value = "";
+                
             });
 
             socket.on("chat_message", (msg) => {
-                document.querySelector('#messages').innerHTML += `<p>${msg.name} a dit ${msg.message}</p>`
+                document.querySelector("#messages").innerHTML += `<p>${msg.name} a dit ${msg.message}</p>`;
+                
             })
         }
     </script>

@@ -1,0 +1,68 @@
+#messages{
+    background-color: white;
+    height: 100%;
+    overflow-y: scroll;
+    }
+    body{
+        display: flex;
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: orange;
+    }
+    aside{
+        flex: 1;
+    }
+    main{
+        flex: 4;
+    }
+    #writing{
+        position: absolute;
+        bottom: 0;
+    }
+    #messages div{
+        margin: 0;
+        padding: 10px;
+        color: orange;
+    }
+    #tabs{
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+    #tabs li{
+        padding: 10px;
+        color: black;
+        text-transform: lowercase;
+    }
+    
+    form{
+        display : flex;
+    }
+    h1{
+        display: flex;
+        justify-content: center;
+    }
+    #username{
+        flex: 1;
+    }
+    #message{
+        flex: 5;
+    }
+    button{
+        flex:1;
+        background-color: green;
+        padding: 10px;
+        border: none;
+        color: primarycolor;
+    
+    }
+    #content{
+        height: 90vh;
+        position: relative;
+    }
+    #tabs li.active{
+        background-color: white;
+        font-weight: bold;
+    }
+    #tabs li:not(.active){
+        cursor: pointer;
+    }

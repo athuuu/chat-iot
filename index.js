@@ -1,6 +1,10 @@
-const { send } = require("process");
+//const { send } = require("process");
+const express = require("express")
+const app = express();
 
-const app = require("express")();
+const path = require("path");
+
+app.use(express.static(path.join(__dirname, "public")));
 
 const http = require("http").createServer(app);
 
