@@ -40,11 +40,23 @@ io.on("connection", (socket) => {
   socket.on("enter_room", (room) => {
     socket.join(room);
     console.log(socket.rooms);
+
+    Chat.findAll({
+      attributes: ["id", "username", "message", "room", "createdAt"],
+      where: {
+        room: room,
+      },
+    }).then((list) => {
+      socket.emit("init_messages", { messages: JSON.stringify(list) });
+    });
+  });
+
+  socket.on("create_room", (room) => {
+    socket.create(room);
   });
 
   socket.on("leave_room", (room) => {
     socket.leave(room);
-    console.log(socket.rooms);
   });
 
   socket.on("chat_message", (msg) => {
@@ -60,6 +72,9 @@ io.on("connection", (socket) => {
       .catch((e) => {
         console.log(e);
       });
+  });
+  socket.on("en train d'ecrire", (msg) => {
+    socket.to(msg.room).emit("quelqu'un ecrit", msg);
   });
 });
 

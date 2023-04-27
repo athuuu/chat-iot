@@ -25,9 +25,7 @@ window.onload = () => {
   });
 
   socket.on("chat_message", (msg) => {
-    document.querySelector(
-      "#messages"
-    ).innerHTML += `<p>${msg.name} a dit ${msg.message}</p>`;
+    publish(msg);
   });
 
   document.querySelectorAll("#tabs li").forEach((tab) => {
@@ -42,4 +40,42 @@ window.onload = () => {
       }
     });
   });
+  socket.on("init_messages", (msg) => {
+    let data = JSON.parse(msg.messages);
+    if (data != []) {
+      data.forEach((donnees) => {
+        publish(donnees);
+      });
+    }
+  });
+  document.querySelector("#message").addEventListener("input", () => {
+    const name = document.querySelector("#username").value;
+
+    const room = document.querySelector("#tabs li.active").dataset.room;
+
+    socket.emit("en train d'ecrire", {
+      username: username,
+      room: room,
+    });
+  });
+  socket.on("quelqu'un ecrit", (msg) => {
+    const writing = document.querySelector("#writing");
+
+    writing.innerHTML = `${msg.username} est en train d'ecrire`;
+
+    setTimeout(function () {
+      writing.innerHtml = "";
+    }, 3000);
+  });
 };
+
+function publish(msg) {
+  let created = new Date(msg.createdAt);
+  let texte = `<div><p>${
+    msg.name
+  } <small>${created.toLocaleDateString()}</small></p><p>${
+    msg.message
+  }</p></div>`;
+
+  document.querySelector("#messages").innerHTML += texte;
+}
