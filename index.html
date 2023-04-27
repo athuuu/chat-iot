@@ -8,9 +8,9 @@
 <body>
     <aside>
         <ul id="tabs">
-            <li class="active">#accueil</li>
-            <li class="entraide">#Entraide</li>
-            <li class="salons">#Salons</li>
+            <li class="active" data-room="accueil">#accueil</li>
+            <li class="entraide" data-room="entraide">#Entraide</li>
+            <li class="salons" data-room="salons">#Salons</li>
 
         </ul>
     </aside>
@@ -18,7 +18,7 @@
         
         <div id="content">
             <div id="messages"></div>
-            <div id="writing">athu écrit un message</div>
+            <div id="writing"></div>
         </div>
 
     
@@ -31,27 +31,6 @@
     
     
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-        const socket = io();
-        window.onload = () => {
-            document.querySelector("form").addEventListener("submit", (e) => {
-                e.preventDefault();
-
-                const name = document.querySelector("#username")
-                const messages = document.querySelector("#message");
-                
-                socket.emit("chat_message", {
-                    name: name.value, message: messages.value });
-                    
-                    document.querySelector('#message').value = "";
-                
-            });
-
-            socket.on("chat_message", (msg) => {
-                document.querySelector("#messages").innerHTML += `<p>${msg.name} a dit ${msg.message}</p>`;
-                
-            })
-        }
-    </script>
+    <script src="js/script.js"></script>
 </body>
 </html>

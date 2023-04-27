@@ -6,7 +6,7 @@
     body{
         display: flex;
         font-family: Arial, Helvetica, sans-serif;
-        background-color: orange;
+        background-color: grey;
     }
     aside{
         flex: 1;
@@ -30,7 +30,7 @@
     }
     #tabs li{
         padding: 10px;
-        color: black;
+        color: white;
         text-transform: lowercase;
     }
     
@@ -43,6 +43,12 @@
     }
     #username{
         flex: 1;
+    }
+    #username #message{
+        background-color: black;
+        color: white;
+        padding: 10px;
+        border: none;
     }
     #message{
         flex: 5;
@@ -60,7 +66,7 @@
         position: relative;
     }
     #tabs li.active{
-        background-color: white;
+        background-color: orange;
         font-weight: bold;
     }
     #tabs li:not(.active){
